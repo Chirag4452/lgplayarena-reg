@@ -35,7 +35,7 @@ export const formatAmount = (amountInPaise: number): string => {
  * @param {Function} onError - Error callback function
  */
 export const handlePayUPayment = (
-  userData: UserRegistrationData,
+  _userData: UserRegistrationData,
   onSuccess: (paymentData: PaymentVerificationResponse) => void,
   onError: (error: string) => void
 ): void => {
@@ -74,7 +74,6 @@ export const handlePayUPayment = (
     // PRODUCTION MODE: Redirect to PayU
     // Note: Form data is already stored in sessionStorage in handleSubmit
     const payuUrl = import.meta.env.VITE_PAYU_PAYMENT_URL || 'https://u.payu.in/HIVMYbY1Ko3O';
-    console.log('🔄 Redirecting to PayU:', payuUrl);
     window.location.href = payuUrl;
 
   } catch (error) {
@@ -94,11 +93,8 @@ export const checkPaymentCompletion = (
   onError: (error: string) => void
 ): void => {
   try {
-    console.log('🔍 Checking for payment completion...');
-
     // Check if user returned from payment
     const urlParams = new URLSearchParams(window.location.search);
-    console.log('📋 URL Parameters:', Object.fromEntries(urlParams.entries()));
 
     // Check multiple possible PayU response parameters
     const paymentStatus = urlParams.get('payment_status') ||
@@ -112,22 +108,15 @@ export const checkPaymentCompletion = (
       urlParams.get('payu_payment_id') ||
       urlParams.get('mihpayid');
 
-    console.log('💳 Payment Status:', paymentStatus);
-    console.log('🆔 Transaction ID:', transactionId);
-
     // Check for successful payment
     if (paymentStatus && transactionId &&
       (paymentStatus.toLowerCase() === 'success' ||
         paymentStatus.toLowerCase() === 'completed' ||
         paymentStatus.toLowerCase() === 'successful')) {
 
-      console.log('✅ Payment appears successful, checking stored data...');
-
       // Get stored registration data
       const storedData = sessionStorage.getItem('pendingRegistration');
       if (storedData) {
-        console.log('📦 Found stored registration data');
-
         // Create payment verification response for PayU
         const paymentData: PaymentVerificationResponse = {
           payment_id: transactionId,
@@ -140,19 +129,14 @@ export const checkPaymentCompletion = (
           verified_at: new Date().toISOString(),
         };
 
-        console.log('💳 Payment data prepared:', paymentData);
-
         // Call success callback FIRST, then clear stored data
-        console.log('🚀 Calling success callback...');
         onSuccess(paymentData);
 
         // Clear stored data AFTER success callback is processed
         setTimeout(() => {
           sessionStorage.removeItem('pendingRegistration');
-          console.log('🗑️ Cleared stored registration data');
         }, 100);
       } else {
-        console.log('❌ No stored registration data found');
         onError('Registration data not found. Please try registering again.');
       }
     } else if (paymentStatus &&
@@ -160,12 +144,9 @@ export const checkPaymentCompletion = (
         paymentStatus.toLowerCase() === 'failed' ||
         paymentStatus.toLowerCase() === 'cancelled' ||
         paymentStatus.toLowerCase() === 'error')) {
-      console.log('❌ Payment was unsuccessful');
       onError('Payment was unsuccessful. Please try again.');
       // Clear stored data on failure
       sessionStorage.removeItem('pendingRegistration');
-    } else {
-      console.log('ℹ️ No payment completion detected, continuing normally...');
     }
   } catch (error) {
     console.error('❌ Payment completion check error:', error);

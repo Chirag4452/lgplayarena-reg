@@ -8,19 +8,8 @@ import User from '../models/User.js';
  */
 export const registerUser = async (req, res) => {
   try {
-    console.log('📝 Registration request received:', {
-      body: req.body,
-      hasUser: !!req.body?.user,
-      hasPayment: !!req.body?.payment
-    });
-
     // Validate request body structure
     if (!req.body || !req.body.user || !req.body.payment) {
-      console.log('❌ Missing data in request:', {
-        body: req.body,
-        user: req.body?.user,
-        payment: req.body?.payment
-      });
       return res.status(400).json({
         success: false,
         message: 'Missing user data or payment information',
@@ -29,8 +18,6 @@ export const registerUser = async (req, res) => {
     }
 
     const { user: userData, payment: paymentData } = req.body;
-    console.log('👤 User data:', userData);
-    console.log('💳 Payment data:', paymentData);
 
     // Allow duplicate emails - users can register multiple times with same email
 
@@ -49,17 +36,12 @@ export const registerUser = async (req, res) => {
       registration_status: 'confirmed', // Set to confirmed after successful payment
     };
 
-    console.log('📋 Prepared user data with payment:', userDataWithPayment);
-
     // Create new user document
     const newUser = new User(userDataWithPayment);
-    console.log('🆕 Created user document:', newUser);
-    
+
     // Save user to database
     const savedUser = await newUser.save();
-    
-    console.log('✅ User registered successfully with payment:', savedUser._id);
-    
+
     // Return success response
     const userResponse = {
       id: savedUser._id,
@@ -137,7 +119,7 @@ export const getAllRegistrations = async (req, res) => {
   try {
     // Fetch all users from database
     const users = await User.find({}).sort({ createdAt: -1 });
-    
+
     // Map users to exclude sensitive info if needed
     const userList = users.map(user => ({
       id: user._id,

@@ -15,27 +15,17 @@ const envFile = `.env.${nodeEnv}`;
 const envPath = join(__dirname, '..', envFile);
 const fallbackPath = join(__dirname, '../.env');
 
-console.log(`🌍 Environment: ${nodeEnv}`);
-console.log(`🔍 Looking for ${envFile} at:`, envPath);
-
 let result;
 if (existsSync(envPath)) {
   result = dotenv.config({ path: envPath });
-  console.log(`✅ Loaded ${envFile}`);
 } else if (existsSync(fallbackPath)) {
   result = dotenv.config({ path: fallbackPath });
-  console.log('⚠️ Environment-specific file not found, loaded fallback .env');
 } else {
   console.error('❌ No .env file found!');
 }
 
 if (result?.error) {
   console.error('❌ Error loading .env file:', result.error.message);
-} else {
-  console.log('🔑 Environment variables loaded:');
-  console.log('  - PORT:', process.env.PORT || 'NOT SET');
-  console.log('  - NODE_ENV:', process.env.NODE_ENV || 'NOT SET');
-  console.log('  - FRONTEND_URL:', process.env.FRONTEND_URL || 'NOT SET');
 }
 
 // NOW import other modules (config.js will see the environment variables)
@@ -84,7 +74,6 @@ app.get('/api/health', (req, res) => {
 // Test registration endpoint for debugging (only in development)
 if (process.env.NODE_ENV === 'development') {
   app.post('/api/test-registration', (req, res) => {
-    console.log('🧪 Test registration endpoint hit:', req.body);
     res.status(200).json({
       success: true,
       message: 'Test endpoint working',
@@ -96,10 +85,6 @@ if (process.env.NODE_ENV === 'development') {
 
 // PayU payment confirmation handler function
 const handlePayUConfirmation = (req, res) => {
-  console.log('💳 PayU payment confirmation received:', req.body);
-  console.log('📍 Request URL:', req.originalUrl);
-  console.log('🌐 Environment FRONTEND_URL:', process.env.FRONTEND_URL);
-
   // Use environment variable with fallback for PayU redirects
   const productionUrl = process.env.FRONTEND_URL || 'https://lg87playarena.netlify.app';
 
@@ -109,12 +94,10 @@ const handlePayUConfirmation = (req, res) => {
     if (status === 'success') {
       // Payment successful - redirect to frontend with success parameters
       const redirectUrl = `${productionUrl}/register?payment_status=success&txnid=${txnid}&amount=${amount}`;
-      console.log('✅ Payment successful, redirecting to:', redirectUrl);
       return res.redirect(redirectUrl);
     } else {
       // Payment failed - redirect to frontend with failure parameters
       const redirectUrl = `${productionUrl}/register?payment_status=failed&txnid=${txnid}`;
-      console.log('❌ Payment failed, redirecting to:', redirectUrl);
       return res.redirect(redirectUrl);
     }
   } catch (error) {
@@ -167,11 +150,7 @@ const startServer = async () => {
 
     // Start the server
     app.listen(PORT, () => {
-      console.log(`🚀 Server running on port ${PORT}`);
-      console.log(`📍 Health check: http://localhost:${PORT}/api/health`);
-      console.log(`📍 Base URL: http://localhost:${PORT}`);
-      console.log(`🌍 Environment: ${config.env}`);
-      console.log(`🔗 Frontend URL: ${config.cors.origin}`);
+      console.log(`🚀 Server running on port ${PORT} [${config.env}]`);
     });
   } catch (error) {
     console.error('❌ Failed to start server:', error);
