@@ -1,11 +1,16 @@
 import axios from 'axios';
 
+// Determine API base URL based on environment
+const getApiBaseUrl = () => {
+  const isDevelopment = import.meta.env.VITE_NODE_ENV === 'development';
+  return isDevelopment
+    ? 'http://localhost:5000/api'  // Local development server
+    : 'https://event-hosting-88a0.onrender.com/api';  // Production server
+};
+
 // Create axios instance with base configuration
 const api = axios.create({
-  // For production - use render URL
-  baseURL: 'https://event-hosting-88a0.onrender.com/api',
-  // For local development - uncomment the line below and comment the line above
-  // baseURL: 'http://localhost:5000/api',
+  baseURL: getApiBaseUrl(),
   headers: {
     'Content-Type': 'application/json',
   },
