@@ -17,7 +17,10 @@ function App() {
             <Route path="/register" element={<Register />} />
             <Route path="/success" element={<Success />} />
             <Route path="/policies" element={<Policies />} />
-            <Route path="/debug" element={<PaymentDebug />} />
+            {/* Debug route only available in development */}
+            {import.meta.env.VITE_NODE_ENV === 'development' && (
+              <Route path="/debug" element={<PaymentDebug />} />
+            )}
           </Routes>
         </main>
         <AboutOrganizers />

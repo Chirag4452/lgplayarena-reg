@@ -5,19 +5,37 @@ import { dirname, join } from 'path';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
-// Load .env file IMMEDIATELY, before importing any other modules
+// Load environment-specific .env file
 import dotenv from 'dotenv';
-const envPath = join(__dirname, '../.env');
-console.log('🔍 Looking for .env file at:', envPath);
-const result = dotenv.config({ path: envPath });
+import { existsSync } from 'fs';
 
-if (result.error) {
+// Determine which env file to load based on NODE_ENV
+const nodeEnv = process.env.NODE_ENV || 'development';
+const envFile = `.env.${nodeEnv}`;
+const envPath = join(__dirname, '..', envFile);
+const fallbackPath = join(__dirname, '../.env');
+
+console.log(`🌍 Environment: ${nodeEnv}`);
+console.log(`🔍 Looking for ${envFile} at:`, envPath);
+
+let result;
+if (existsSync(envPath)) {
+  result = dotenv.config({ path: envPath });
+  console.log(`✅ Loaded ${envFile}`);
+} else if (existsSync(fallbackPath)) {
+  result = dotenv.config({ path: fallbackPath });
+  console.log('⚠️ Environment-specific file not found, loaded fallback .env');
+} else {
+  console.error('❌ No .env file found!');
+}
+
+if (result?.error) {
   console.error('❌ Error loading .env file:', result.error.message);
 } else {
-  console.log('✅ .env file loaded successfully');
   console.log('🔑 Environment variables loaded:');
   console.log('  - PORT:', process.env.PORT || 'NOT SET');
   console.log('  - NODE_ENV:', process.env.NODE_ENV || 'NOT SET');
+  console.log('  - FRONTEND_URL:', process.env.FRONTEND_URL || 'NOT SET');
 }
 
 // NOW import other modules (config.js will see the environment variables)
@@ -63,29 +81,31 @@ app.get('/api/health', (req, res) => {
   });
 });
 
-// Test registration endpoint for debugging
-app.post('/api/test-registration', (req, res) => {
-  console.log('🧪 Test registration endpoint hit:', req.body);
-  res.status(200).json({
-    success: true,
-    message: 'Test endpoint working',
-    receivedData: req.body,
-    timestamp: new Date().toISOString()
+// Test registration endpoint for debugging (only in development)
+if (process.env.NODE_ENV === 'development') {
+  app.post('/api/test-registration', (req, res) => {
+    console.log('🧪 Test registration endpoint hit:', req.body);
+    res.status(200).json({
+      success: true,
+      message: 'Test endpoint working',
+      receivedData: req.body,
+      timestamp: new Date().toISOString()
+    });
   });
-});
+}
 
 // PayU payment confirmation handler function
 const handlePayUConfirmation = (req, res) => {
   console.log('💳 PayU payment confirmation received:', req.body);
   console.log('📍 Request URL:', req.originalUrl);
   console.log('🌐 Environment FRONTEND_URL:', process.env.FRONTEND_URL);
-  
+
+  // Use environment variable with fallback for PayU redirects
+  const productionUrl = process.env.FRONTEND_URL || 'https://lg87playarena.netlify.app';
+
   try {
     const { status, txnid, amount, productinfo, firstname, email, phone } = req.body;
-    
-    // Always use production URL for PayU redirects (never localhost)
-    const productionUrl = 'https://lg87playarena.netlify.app';
-    
+
     if (status === 'success') {
       // Payment successful - redirect to frontend with success parameters
       const redirectUrl = `${productionUrl}/register?payment_status=success&txnid=${txnid}&amount=${amount}`;
@@ -144,7 +164,7 @@ const startServer = async () => {
   try {
     // Connect to MongoDB first
     await connectDB();
-    
+
     // Start the server
     app.listen(PORT, () => {
       console.log(`🚀 Server running on port ${PORT}`);

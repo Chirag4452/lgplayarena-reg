@@ -1,2 +1,7 @@
 node_modules/
-.env
+
+# Environment files - ignore local .env, track environment-specific files
+.env.local
+
+# Keep example file for reference
+!.env.example

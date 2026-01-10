@@ -4,7 +4,7 @@ const config = {
   get port() {
     return process.env.PORT || 5000;
   },
-  
+
   // MongoDB configuration
   mongodb: {
     get uri() {
@@ -16,26 +16,30 @@ const config = {
       socketTimeoutMS: 45000,
     }
   },
-  
+
   // Environment
   get env() {
     return process.env.NODE_ENV || 'development';
   },
-  
+
   // CORS configuration
   cors: {
     get origin() {
-      // Allow multiple origins for development and production
-      const allowedOrigins = [
-        // Production URLs - PRIORITY FOR PRODUCTION
-        'https://lg87playarena.netlify.app',  // Current Production Netlify
-        process.env.FRONTEND_URL,  // Custom domain from environment
-        // Development URLs - COMMENT OUT FOR PRODUCTION
-        // 'http://localhost:5173',  // Development - React dev server
-        // 'http://localhost:3000',  // Alternative React dev server port
-      ].filter(Boolean); // Remove undefined values
-      
-      return allowedOrigins;
+      const isDevelopment = process.env.NODE_ENV === 'development';
+
+      // Production URLs (always included)
+      const productionOrigins = [
+        'https://lg87playarena.netlify.app',
+        process.env.FRONTEND_URL,
+      ];
+
+      // Development URLs (only included in development mode)
+      const developmentOrigins = isDevelopment ? [
+        'http://localhost:5173',
+        'http://localhost:3000',
+      ] : [];
+
+      return [...productionOrigins, ...developmentOrigins].filter(Boolean);
     },
     credentials: true
   }
