@@ -24,8 +24,8 @@ export interface UserRegistrationData {
   parent_name: string;
   parent_phone: string;
   grade: string;
-  category: string;
   gender: string;
+  address: string;
 }
 
 export interface PaymentVerificationResponse {

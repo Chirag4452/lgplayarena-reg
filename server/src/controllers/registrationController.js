@@ -50,7 +50,8 @@ export const registerUser = async (req, res) => {
       parent_name: savedUser.parent_name,
       parent_phone: savedUser.parent_phone,
       grade: savedUser.grade,
-      category: savedUser.category,
+      gender: savedUser.gender,
+      address: savedUser.address,
       payment_details: {
         payment_id: savedUser.payment_details.payment_id,
         amount_paid: savedUser.payment_details.amount_paid,

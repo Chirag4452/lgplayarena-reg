@@ -5,17 +5,11 @@ import type {
 } from '../services/api';
 
 /**
- * Get registration fee display for a category
- * @param {string} category - Category name
+ * Get registration fee display
  * @returns {string} Fee display string
  */
-export const getRegistrationFeeDisplay = (category: string): string => {
-  const fees: Record<string, string> = {
-    'Level 1': '₹500',
-    'Level 2': '₹500',
-    'Level 3': '₹500',
-  };
-  return fees[category] || '₹5';
+export const getRegistrationFeeDisplay = (): string => {
+  return '₹500';
 };
 
 /**
@@ -32,7 +26,7 @@ export const formatAmount = (amountInPaise: number): string => {
  * In development mode, bypasses PayU and simulates successful payment
  * @param {UserRegistrationData} userData - User registration data
  * @param {Function} onSuccess - Success callback function
- * @param {Function} onError - Error callback function
+ * @param {Function} onError - Error  callback function
  */
 export const handlePayUPayment = (
   _userData: UserRegistrationData,

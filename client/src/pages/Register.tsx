@@ -16,12 +16,12 @@ import type {
   RegistrationRequest,
   PaymentVerificationResponse,
 } from '../services/api';
-import { handlePayUPayment, getRegistrationFeeDisplay, checkPaymentCompletion } from '../utils/payment';
+import { handlePayUPayment, checkPaymentCompletion } from '../utils/payment';
 
 // ============================================================================
 // Components
 // ============================================================================
-import { Header, EventInfo, SkillLevelSelector, TermsSection, FormField } from '../components';
+import { Header, EventInfo, TermsSection, FormField } from '../components';
 
 // ============================================================================
 // Constants
@@ -54,8 +54,8 @@ const Register: React.FC = () => {
     parent_name: '',
     parent_phone: '',
     grade: '',
-    category: '',
     gender: '',
+    address: '',
   });
 
   // --------------------------------------------------------------------------
@@ -96,8 +96,8 @@ const Register: React.FC = () => {
       formData.parent_name &&
       formData.parent_phone &&
       formData.grade &&
-      formData.category &&
-      formData.gender;
+      formData.gender &&
+      formData.address;
 
     if (isFormComplete) {
       checkPaymentCompletion(handlePaymentSuccess, handlePaymentError);
@@ -117,12 +117,7 @@ const Register: React.FC = () => {
     }
   };
 
-  const handleCategorySelect = (category: string): void => {
-    setFormData((prev) => ({ ...prev, category }));
-    if (errors.category) {
-      setErrors((prev) => ({ ...prev, category: '' }));
-    }
-  };
+
 
   // --------------------------------------------------------------------------
   // Validation
@@ -161,14 +156,18 @@ const Register: React.FC = () => {
       newErrors.grade = 'Please select a valid grade';
     }
 
-    // Category validation
-    if (!formData.category) {
-      newErrors.category = 'Please select a skill level';
-    }
+
 
     // Gender validation
     if (!formData.gender) {
       newErrors.gender = 'Please select a gender';
+    }
+
+    // Address validation
+    if (formData.address.length < 10) {
+      newErrors.address = 'Address must be at least 10 characters long';
+    } else if (formData.address.length > 200) {
+      newErrors.address = 'Address cannot exceed 200 characters';
     }
 
     // Terms validation
@@ -355,12 +354,18 @@ const Register: React.FC = () => {
               options={GENDER_OPTIONS}
             />
 
-            {/* Skill Level Selection */}
-            <SkillLevelSelector
-              selectedCategory={formData.category}
-              onSelect={handleCategorySelect}
-              error={errors.category}
+            {/* Address */}
+            <FormField
+              id="address"
+              name="address"
+              label="Address"
+              value={formData.address}
+              onChange={handleInputChange}
+              error={errors.address}
+              placeholder="Enter your complete address"
             />
+
+
 
             {/* Terms and Conditions */}
             <TermsSection
@@ -391,15 +396,15 @@ const Register: React.FC = () => {
                 type="submit"
                 disabled={isSubmitting}
                 className={`w-full py-3 px-4 rounded-md font-medium text-white text-sm transition-all duration-200 ${isSubmitting
-                    ? 'bg-gray-400 cursor-not-allowed'
-                    : 'bg-blue-600 hover:bg-blue-700 hover:shadow-md active:transform active:scale-95'
+                  ? 'bg-gray-400 cursor-not-allowed'
+                  : 'bg-blue-600 hover:bg-blue-700 hover:shadow-md active:transform active:scale-95'
                   }`}
               >
                 {isProcessingPayment
                   ? 'Processing Payment...'
                   : isSubmitting
                     ? 'Completing Registration...'
-                    : `Pay ${formData.category ? getRegistrationFeeDisplay(formData.category) : '₹500'} & Register`}
+                    : 'Pay ₹500 & Register'}
               </button>
 
               {/* Security Badge */}
@@ -415,10 +420,10 @@ const Register: React.FC = () => {
             {submitMessage && (
               <div
                 className={`mt-4 p-3 rounded-lg text-center text-sm ${submitMessage.includes('successful') || submitMessage.includes('completed')
-                    ? 'bg-green-50 text-green-800 border border-green-200'
-                    : submitMessage.includes('Processing') || submitMessage.includes('Initializing')
-                      ? 'bg-blue-50 text-blue-800 border border-blue-200'
-                      : 'bg-red-50 text-red-800 border border-red-200'
+                  ? 'bg-green-50 text-green-800 border border-green-200'
+                  : submitMessage.includes('Processing') || submitMessage.includes('Initializing')
+                    ? 'bg-blue-50 text-blue-800 border border-blue-200'
+                    : 'bg-red-50 text-red-800 border border-red-200'
                   }`}
               >
                 {submitMessage}

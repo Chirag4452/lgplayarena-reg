@@ -4,12 +4,8 @@ import config from './config.js';
 // Payment constants
 export const PAYMENT_CONFIG = {
   currency: 'INR',
-  // Registration fees by category (in paise - 1 INR = 100 paise)
-  registrationFees: {
-    'Level 1': 500, // ₹5 (for testing)
-    'Level 2': 500, // ₹5 (for testing)
-    'Level 3': 500, // ₹5 (for testing)
-  },
+  // Fixed registration fee (in rupees)
+  registrationFee: 500, // ₹500
   // Payment options
   options: {
     name: 'LG 87 Skating Championship',
@@ -33,12 +29,11 @@ export const PAYMENT_CONFIG = {
 };
 
 /**
- * Get registration fee based on category
- * @param {string} category - User's skill level category
- * @returns {number} Fee amount in paise
+ * Get registration fee
+ * @returns {number} Fee amount in rupees
  */
-export const getRegistrationFee = (category) => {
-  return PAYMENT_CONFIG.registrationFees[category] || PAYMENT_CONFIG.registrationFees['Level 1'];
+export const getRegistrationFee = () => {
+  return PAYMENT_CONFIG.registrationFee;
 };
 
 /**

@@ -21,15 +21,14 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
-    category: {
-        type: String,
-        required: true,
-        enum: ['Level 1', 'Level 2', 'Level 3'],
-    },
     gender: {
         type: String,
         required: true,
         enum: ['male', 'female'],
+    },
+    address: {
+        type: String,
+        required: true,
     },
     // Payment information
     payment_details: {
