@@ -358,11 +358,11 @@ const Register: React.FC = () => {
             <FormField
               id="address"
               name="address"
-              label="Address"
+              label="Apartment/Society Name"
               value={formData.address}
               onChange={handleInputChange}
               error={errors.address}
-              placeholder="Enter your complete address"
+              placeholder="Enter your apartment or society name"
             />
 
 

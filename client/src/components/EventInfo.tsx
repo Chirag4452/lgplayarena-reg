@@ -4,7 +4,6 @@
  * Displays event details and invites users to register below
  */
 import React from 'react';
-import lgArenaLogo from '../assets/LG-arena-logo.jpg';
 import fsLogo from '../assets/Flying-skater-logo.jpg';
 
 const EventInfo: React.FC = () => {
@@ -39,8 +38,7 @@ const EventInfo: React.FC = () => {
                     {/* Organizers */}
                     <div className="flex items-center justify-center gap-4 mb-4">
                         <span className="text-slate-500 text-xs uppercase font-semibold">Organized by</span>
-                        <img src={lgArenaLogo} alt="LG 87 Play Arena" className="w-20 h-20 rounded-lg shadow-sm" />
-                        <img src={fsLogo} alt="Flying Skaters Academy" className="w-16 h-16 rounded-lg shadow-sm" />
+                        <img src={fsLogo} alt="Flying Skaters Academy" className="w-20 h-20 rounded-lg shadow-sm" />
                     </div>
                 </div>
 

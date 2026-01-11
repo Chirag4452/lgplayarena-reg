@@ -3,7 +3,7 @@
  * Displays the site header with logo and navigation links
  */
 import React from 'react';
-import lgArenaLogo from '../assets/LG-arena-logo.jpg';
+import fsLogo from '../assets/Flying-skater-logo.jpg';
 
 const Header: React.FC = () => {
     return (
@@ -11,10 +11,10 @@ const Header: React.FC = () => {
             <div className="flex flex-col sm:flex-row items-center justify-between">
                 {/* Logo and Title */}
                 <div className="flex items-center space-x-4 mb-4 sm:mb-0">
-                    <img src={lgArenaLogo} alt="LG 87 Play Arena" className="w-12 h-12" />
+                    <img src={fsLogo} alt="Flying Skaters Academy" className="w-12 h-12" />
                     <div>
-                        <h3 className="text-lg font-bold text-slate-800">LG 87 PLAY ARENA</h3>
-                        <p className="text-sm text-slate-600">SPORTS CLUB</p>
+                        <h3 className="text-lg font-bold text-slate-800">Flying Skaters Academy</h3>
+                        <p className="text-sm text-slate-600">SKATING ACADEMY</p>
                     </div>
                 </div>
 
