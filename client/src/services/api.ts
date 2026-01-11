@@ -5,7 +5,7 @@ const getApiBaseUrl = () => {
   const isDevelopment = import.meta.env.VITE_NODE_ENV === 'development';
   return isDevelopment
     ? 'http://localhost:5000/api'  // Local development server
-    : 'https://event-hosting-88a0.onrender.com/api';  // Production server
+    : 'https://lgplayarena-reg.onrender.com/api';  // Production server
 };
 
 // Create axios instance with base configuration
