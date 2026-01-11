@@ -5,6 +5,10 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
+    coach_name: {
+        type: String,
+        required: true,
+    },
     parent_name: {
         type: String,
         required: true,

@@ -20,6 +20,7 @@ const api = axios.create({
 // Type definitions for API responses
 export interface UserRegistrationData {
   name: string;
+  coach_name: string;
   parent_name: string;
   parent_phone: string;
   grade: string;

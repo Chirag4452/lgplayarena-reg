@@ -50,6 +50,7 @@ const Register: React.FC = () => {
   // --------------------------------------------------------------------------
   const [formData, setFormData] = useState<UserRegistrationData>({
     name: '',
+    coach_name: '',
     parent_name: '',
     parent_phone: '',
     grade: '',
@@ -131,6 +132,12 @@ const Register: React.FC = () => {
     }
 
 
+    // Coach name validation
+    if (formData.coach_name.length < 3) {
+      newErrors.coach_name = 'Coach name must be at least 3 characters long';
+    } else if (formData.coach_name.length > 50) {
+      newErrors.coach_name = 'Coach name cannot exceed 50 characters';
+    }
 
     // Parent name validation
     if (formData.parent_name.length < 3) {
@@ -310,6 +317,17 @@ const Register: React.FC = () => {
               onChange={handleInputChange}
               error={errors.name}
               placeholder="Enter participant's full name"
+            />
+
+            {/* Coach Name */}
+            <FormField
+              id="coach_name"
+              name="coach_name"
+              label="Coach Name"
+              value={formData.coach_name}
+              onChange={handleInputChange}
+              error={errors.coach_name}
+              placeholder="Enter coach's name"
             />
 
             {/* Grade Selection */}
