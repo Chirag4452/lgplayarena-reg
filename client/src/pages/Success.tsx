@@ -9,24 +9,27 @@ const Success: React.FC = () => {
       <div className="bg-white rounded-2xl shadow-xl p-8 text-center max-w-md w-full">
         {/* Success Icon */}
         <div className="text-6xl mb-4">🎉</div>
-        
+
         {/* Success Message */}
         <h1 className="text-3xl font-bold text-gray-800 mb-4">Payment Successful!</h1>
         <h2 className="text-xl font-semibold text-green-600 mb-4">Registration Confirmed</h2>
-        
+
         {/* Details */}
         <div className="bg-green-50 rounded-lg p-4 mb-6 border border-green-200">
           <p className="text-gray-700 mb-2">
             <strong>Thank you for registering for the</strong>
           </p>
-          <p className="text-blue-800 font-bold text-lg mb-2">
-            LG 87 1st Skating Championship
+          <p className="text-transparent bg-clip-text bg-gradient-to-r from-orange-600 via-slate-800 to-green-600 font-bold text-lg mb-1">
+            Republic Day Skatethon
+          </p>
+          <p className="text-green-600 font-semibold text-sm mb-2">
+            Season 3
           </p>
           <p className="text-gray-600 text-sm">
-            Sunday, September 7, 2025 • LG 87 Play Arena
+            1st February 2026 • LG87 Go-Karting Track
           </p>
         </div>
-        
+
         {/* Confirmation Info */}
         <div className="text-left bg-gray-50 rounded-lg p-4 mb-6">
           <h3 className="font-semibold text-gray-800 mb-2">What's Next?</h3>
@@ -35,7 +38,7 @@ const Success: React.FC = () => {
             <li>• Bring safety gear (helmets, knee pads)</li>
           </ul>
         </div>
-        
+
         {/* Action Buttons */}
         <div className="space-y-3">
           <button
@@ -44,7 +47,7 @@ const Success: React.FC = () => {
           >
             Register Another Participant
           </button>
-          
+
           <button
             onClick={() => window.print()}
             className="w-full bg-gray-100 text-gray-700 px-6 py-3 rounded-lg hover:bg-gray-200 transition-colors font-medium border border-gray-300"
@@ -52,7 +55,7 @@ const Success: React.FC = () => {
             Print Confirmation
           </button>
         </div>
-        
+
         {/* Contact Info */}
         <div className="mt-6 pt-4 border-t border-gray-200">
           <p className="text-xs text-gray-500">
