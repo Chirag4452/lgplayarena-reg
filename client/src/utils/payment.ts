@@ -115,8 +115,8 @@ export const checkPaymentCompletion = (
         const paymentData: PaymentVerificationResponse = {
           payment_id: transactionId,
           order_id: `PAYU_${Date.now()}`,
-          amount_paid: 500, // ₹5 in paise
-          amount_display: '₹5',
+          amount_paid: 50000, // ₹500 in paise
+          amount_display: '₹500',
           currency: 'INR',
           status: 'completed',
           method: 'PayU',

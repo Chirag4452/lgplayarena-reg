@@ -46,6 +46,7 @@ export const registerUser = async (req, res) => {
     const userResponse = {
       id: savedUser._id,
       name: savedUser.name,
+      coach_name: savedUser.coach_name,
       parent_name: savedUser.parent_name,
       parent_phone: savedUser.parent_phone,
       grade: savedUser.grade,
