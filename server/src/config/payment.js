@@ -8,18 +8,17 @@ export const PAYMENT_CONFIG = {
   registrationFee: 500, // ₹500
   // Payment options
   options: {
-    name: 'LG 87 Skating Championship',
+    name: 'LG 87 ',
     description: 'Event Registration Fee',
     theme: {
       color: '#2563eb', // Blue theme matching your UI
     },
     prefill: {
       contact: '',
-      email: '',
     },
     notes: {
-      event: 'LG 87 1st Skating Championship',
-      date: 'September 7, 2025',
+      event: 'LG 87 ',
+      date: 'February 1, 2026',
     },
     retry: {
       enabled: true,

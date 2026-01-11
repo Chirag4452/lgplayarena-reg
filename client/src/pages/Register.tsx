@@ -50,7 +50,6 @@ const Register: React.FC = () => {
   // --------------------------------------------------------------------------
   const [formData, setFormData] = useState<UserRegistrationData>({
     name: '',
-    email: '',
     parent_name: '',
     parent_phone: '',
     grade: '',
@@ -92,7 +91,6 @@ const Register: React.FC = () => {
   useEffect(() => {
     const isFormComplete =
       formData.name &&
-      formData.email &&
       formData.parent_name &&
       formData.parent_phone &&
       formData.grade &&
@@ -132,11 +130,7 @@ const Register: React.FC = () => {
       newErrors.name = 'Name cannot exceed 50 characters';
     }
 
-    // Email validation
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(formData.email)) {
-      newErrors.email = 'Please enter a valid email address';
-    }
+
 
     // Parent name validation
     if (formData.parent_name.length < 3) {
@@ -279,33 +273,10 @@ const Register: React.FC = () => {
         {/* ================================================================ */}
         <div className="bg-white rounded-xl shadow-lg border border-gray-100 p-6 sm:p-8" id="registration">
           <h2 className="text-xl font-semibold text-gray-900 mb-6 text-center">
-            Student Information
+            Participant Information
           </h2>
 
           <form onSubmit={handleSubmit} className="space-y-4">
-            {/* Student Name */}
-            <FormField
-              id="name"
-              name="name"
-              label="Student Name"
-              value={formData.name}
-              onChange={handleInputChange}
-              error={errors.name}
-              placeholder="Enter student's full name"
-            />
-
-            {/* Email */}
-            <FormField
-              id="email"
-              name="email"
-              label="Email Address"
-              type="email"
-              value={formData.email}
-              onChange={handleInputChange}
-              error={errors.email}
-              placeholder="student@example.com"
-            />
-
             {/* Parent Name */}
             <FormField
               id="parent_name"
@@ -321,13 +292,24 @@ const Register: React.FC = () => {
             <FormField
               id="parent_phone"
               name="parent_phone"
-              label="Parent Phone Number"
+              label="Phone Number"
               type="tel"
               value={formData.parent_phone}
               onChange={handleInputChange}
               error={errors.parent_phone}
               placeholder="10-digit phone number"
               maxLength={10}
+            />
+
+            {/* Participant Name */}
+            <FormField
+              id="name"
+              name="name"
+              label="Participant Name"
+              value={formData.name}
+              onChange={handleInputChange}
+              error={errors.name}
+              placeholder="Enter participant's full name"
             />
 
             {/* Grade Selection */}

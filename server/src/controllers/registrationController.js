@@ -46,7 +46,6 @@ export const registerUser = async (req, res) => {
     const userResponse = {
       id: savedUser._id,
       name: savedUser.name,
-      email: savedUser.email,
       parent_name: savedUser.parent_name,
       parent_phone: savedUser.parent_phone,
       grade: savedUser.grade,
@@ -125,7 +124,6 @@ export const getAllRegistrations = async (req, res) => {
     const userList = users.map(user => ({
       id: user._id,
       name: user.name,
-      email: user.email,
       parent_name: user.parent_name,
       parent_phone: user.parent_phone,
       grade: user.grade,

@@ -6,30 +6,26 @@ export const registrationSchema = z.object({
     .string()
     .min(3, 'Name must be at least 3 characters long')
     .max(50, 'Name cannot exceed 50 characters'),
-  
-  email: z
-    .string()
-    .email('Please enter a valid email address'),
-  
+
   phone: z
     .string()
     .min(10, 'Phone number must be at least 10 digits')
     .max(15, 'Phone number cannot exceed 15 digits')
     .regex(/^[\d\s\-\+\(\)]+$/, 'Please enter a valid phone number'),
-  
+
   event_type: z
     .string()
     .min(1, 'Please select an event type'),
-  
+
   participant_type: z
     .string()
     .min(1, 'Please select a participant type'),
-  
+
   emergency_contact: z
     .string()
     .min(3, 'Emergency contact name must be at least 3 characters long')
     .max(50, 'Emergency contact name cannot exceed 50 characters'),
-  
+
   age: z
     .number()
     .min(1, 'Age must be at least 1')

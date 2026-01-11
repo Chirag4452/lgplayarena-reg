@@ -45,7 +45,6 @@ export type AgeGroup = typeof AGE_GROUPS[number];
 // Form field labels and placeholders
 export const FORM_LABELS = {
   name: 'Full Name',
-  email: 'Email Address',
   phone: 'Phone Number',
   event_type: 'Event Type',
   participant_type: 'Participant Type',
@@ -56,7 +55,6 @@ export const FORM_LABELS = {
 // Validation error messages
 export const VALIDATION_MESSAGES = {
   required: 'This field is required',
-  invalid_email: 'Please enter a valid email address',
   invalid_phone: 'Please enter a valid phone number',
   name_too_short: 'Name must be at least 3 characters long',
   name_too_long: 'Name cannot exceed 50 characters',
