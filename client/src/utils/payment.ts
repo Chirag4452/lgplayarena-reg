@@ -67,7 +67,7 @@ export const handlePayUPayment = (
 
     // PRODUCTION MODE: Redirect to PayU
     // Note: Form data is already stored in sessionStorage in handleSubmit
-    const payuUrl = import.meta.env.VITE_PAYU_PAYMENT_URL || 'https://u.payu.in/HIVMYbY1Ko3O';
+    const payuUrl = import.meta.env.VITE_PAYU_PAYMENT_URL || 'https://u.payu.in/jJRyW2sSQWhb';
     window.location.href = payuUrl;
 
   } catch (error) {
