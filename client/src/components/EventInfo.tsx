@@ -48,36 +48,50 @@ const EventInfo: React.FC = () => {
                 <div className="bg-slate-50 rounded-2xl p-5 border border-slate-200 shadow-sm">
                     <h3 className="text-slate-800 font-bold text-sm uppercase tracking-wider text-center mb-4">Event Details</h3>
 
-                    <div className="space-y-4 pl-16 sm:pl-20 pr-4 sm:pr-8">
-                        <div className="flex items-center gap-4">
+                    {/* Date & Time - Side by side */}
+                    <div className="grid grid-cols-2 gap-3 mb-4">
+                        <div className="flex items-center gap-3">
                             <div className="w-10 h-10 bg-slate-800 rounded-full flex items-center justify-center flex-shrink-0">
                                 <span className="text-white text-lg">📅</span>
                             </div>
-                            <div className="border-l-2 border-slate-300 pl-4">
+                            <div className="border-l-2 border-slate-300 pl-3">
                                 <p className="text-slate-500 text-xs font-medium uppercase">Date</p>
-                                <p className="text-slate-900 font-semibold text-base">1st February 2026</p>
+                                <p className="text-slate-900 font-semibold text-sm">1st Feb 2026</p>
                             </div>
                         </div>
 
-                        <div className="flex items-center gap-4">
+                        <div className="flex items-center gap-3">
                             <div className="w-10 h-10 bg-slate-800 rounded-full flex items-center justify-center flex-shrink-0">
                                 <span className="text-white text-lg">⏰</span>
                             </div>
-                            <div className="border-l-2 border-slate-300 pl-4">
+                            <div className="border-l-2 border-slate-300 pl-3">
                                 <p className="text-slate-500 text-xs font-medium uppercase">Time</p>
-                                <p className="text-slate-900 font-semibold text-base">7:45 AM – 10:00 AM</p>
+                                <p className="text-slate-900 font-semibold text-sm">7:45 – 10:00 AM</p>
                             </div>
                         </div>
+                    </div>
 
-                        <div className="flex items-center gap-4">
-                            <div className="w-10 h-10 bg-slate-800 rounded-full flex items-center justify-center flex-shrink-0">
+                    {/* Venue - Horizontal Layout */}
+                    <div className="mt-4 pt-4 border-t border-slate-200">
+                        <div className="flex items-center justify-center gap-3">
+                            {/* Icon */}
+                            <div className="w-10 h-10 bg-gradient-to-br from-green-500 to-emerald-600 rounded-full flex items-center justify-center shadow-md flex-shrink-0">
                                 <span className="text-white text-lg">📍</span>
                             </div>
-                            <div className="border-l-2 border-slate-300 pl-4">
+                            {/* Venue Name */}
+                            <div>
                                 <p className="text-slate-500 text-xs font-medium uppercase">Venue</p>
-                                <p className="text-slate-900 font-semibold text-base">LG87 Go-Karting Track</p>
-                                <a href="https://maps.app.goo.gl/d4BJju25yaCgJkw4A" target="_blank" rel="noopener noreferrer" className="text-slate-600 text-xs underline hover:text-slate-900">View on map →</a>
+                                <p className="text-slate-900 font-bold text-base">LG87 Go-Karting Track</p>
                             </div>
+                            {/* Map Link */}
+                            <a
+                                href="https://maps.app.goo.gl/d4BJju25yaCgJkw4A"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="bg-gradient-to-r from-blue-500 to-blue-600 text-white px-3 py-1.5 rounded-full text-xs font-medium shadow-sm hover:from-blue-600 hover:to-blue-700 transition-all flex-shrink-0"
+                            >
+                                View Map
+                            </a>
                         </div>
                     </div>
 
