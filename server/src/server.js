@@ -41,6 +41,9 @@ import { generalRateLimit } from './middleware/rateLimiter.js';
 // Create Express app instance
 const app = express();
 
+// Trust first proxy (Render, Heroku, etc.) - required for express-rate-limit to work correctly
+app.set('trust proxy', 1);
+
 // Get port from config
 const PORT = config.port;
 
